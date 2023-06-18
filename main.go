@@ -10,8 +10,12 @@ import (
 
 func main() {
 	flag.Usage = func() {
-		fmt.Printf("Usage: %s [-f format] <date>\n\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage: %s [-f format] <date>\n\n", os.Args[0])
 		flag.PrintDefaults()
+		fmt.Fprintln(os.Stderr, "\nAvailable formats:")
+		for key, name := range dateformat.Formats() {
+			fmt.Fprintln(os.Stderr, "\t", key, name)
+		}
 	}
 
 	var formatkey = flag.String("f", "t", "Rendering format")
