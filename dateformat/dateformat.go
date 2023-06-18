@@ -22,13 +22,13 @@ type dateFormat struct {
 }
 
 var formats = map[string]dateFormat{
-	"R": dateFormat{"R", "in 2 hours"},
-	"D": dateFormat{"D", "November 4, 2023"},
-	"d": dateFormat{"d", "04/11/2023"},
-	"T": dateFormat{"T", "11:28:27 AM"},
-	"t": dateFormat{"t", "11:28 AM"},
-	"F": dateFormat{"F", "Saturday, November 4, 2023 11:28:27 AM"},
-	"f": dateFormat{"f", "4 November 2023 11:28"},
+	FORMAT_R: dateFormat{FORMAT_R, "in 2 hours"},
+	FORMAT_D: dateFormat{FORMAT_D, "November 4, 2023"},
+	FORMAT_d: dateFormat{FORMAT_d, "04/11/2023"},
+	FORMAT_T: dateFormat{FORMAT_T, "11:28:27 AM"},
+	FORMAT_t: dateFormat{FORMAT_t, "11:28 AM"},
+	FORMAT_F: dateFormat{FORMAT_F, "Saturday, November 4, 2023 11:28:27 AM"},
+	FORMAT_f: dateFormat{FORMAT_f, "4 November 2023 11:28"},
 }
 
 func Get(which string) (dateFormat, error) {
