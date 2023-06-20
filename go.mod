@@ -1,3 +1,3 @@
 module git.shangtai.net/staffan/go-discorddate
 
-go 1.20
+go 1.17

@@ -8,6 +8,8 @@ import (
 	"git.shangtai.net/staffan/go-discorddate/dateformat"
 )
 
+const DATETIME="2006-01-02 15:04:05"
+
 func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [-f format] <date>\n\n", os.Args[0])
@@ -27,7 +29,7 @@ func main() {
 	if flag.NArg() < 1 {
 		date = time.Now()
 	} else {
-		parsed, err := time.Parse(time.DateTime, flag.Arg(0))
+		parsed, err := time.Parse(DATETIME, flag.Arg(0))
 
 		if err != nil {
 			println(err.Error())
