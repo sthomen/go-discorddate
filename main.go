@@ -42,7 +42,7 @@ func main() {
 		date = parsed
 	}
 
-	format, err := dateformat.Get(*formatkey)
+	format, err := dateformat.ByKey(*formatkey)
 
 	if err != nil {
 		println(err.Error())

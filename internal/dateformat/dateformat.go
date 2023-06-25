@@ -31,7 +31,7 @@ var formats = map[string]DateFormat{
 	FORMAT_f: DateFormat{FORMAT_f, "4 November 2023 11:28"},
 }
 
-func Get(which string) (DateFormat, error) {
+func ByKey(which string) (DateFormat, error) {
 	result, ok := formats[which]
 
 	var err error = nil
@@ -53,7 +53,7 @@ func Formats() map[string]string {
 	return result
 }
 
-func FormatsSlice() []string {
+func FormatsOptions() []string {
 	var result = make([]string, 0, len(formats))
 
 	for _, format := range formats {

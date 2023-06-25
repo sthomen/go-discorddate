@@ -14,7 +14,7 @@ func MainWindow(time time.Time, format dateformat.DateFormat) {
 	app := app.New()
 	w := app.NewWindow("Discord Date Tool")
 
-	formatWidget := widget.NewSelect(dateformat.FormatsSlice(), func (value string) {
+	formatWidget := widget.NewSelect(dateformat.FormatsOptions(), func (value string) {
 		print(value)
 	})
 
