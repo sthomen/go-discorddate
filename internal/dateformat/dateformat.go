@@ -21,23 +21,38 @@ type DateFormat struct {
 	Name string
 }
 
-var formats = map[string]DateFormat{
-	FORMAT_R: DateFormat{FORMAT_R, "in 2 hours"},
-	FORMAT_D: DateFormat{FORMAT_D, "November 4, 2023"},
-	FORMAT_d: DateFormat{FORMAT_d, "04/11/2023"},
-	FORMAT_T: DateFormat{FORMAT_T, "11:28:27 AM"},
-	FORMAT_t: DateFormat{FORMAT_t, "11:28 AM"},
-	FORMAT_F: DateFormat{FORMAT_F, "Saturday, November 4, 2023 11:28:27 AM"},
-	FORMAT_f: DateFormat{FORMAT_f, "4 November 2023 11:28"},
+var formats = []DateFormat{
+	DateFormat{FORMAT_R, "in 2 hours"},
+	DateFormat{FORMAT_D, "November 4, 2023"},
+	DateFormat{FORMAT_d, "04/11/2023"},
+	DateFormat{FORMAT_T, "11:28:27 AM"},
+	DateFormat{FORMAT_t, "11:28 AM"},
+	DateFormat{FORMAT_F, "Saturday, November 4, 2023 11:28:27 AM"},
+	DateFormat{FORMAT_f, "4 November 2023 11:28"},
 }
 
 func ByKey(which string) (DateFormat, error) {
-	result, ok := formats[which]
+	var result DateFormat
+	var err error = errors.New("Invalid format")
 
-	var err error = nil
+	for _, format := range formats {
+		if format.Key == which {
+			result = format
+			err = nil
+			break
+		}
+	}
 
-	if !ok {
-		err = errors.New("Invalid format: " + which)
+	return result, err
+}
+
+func ByIndex(index int) (DateFormat, error) {
+	var result DateFormat
+	var err error = errors.New("Index out of range")
+
+	if index >= 0 && index < len(formats) {
+		result = formats[index]
+		err = nil
 	}
 
 	return result, err
@@ -46,15 +61,15 @@ func ByKey(which string) (DateFormat, error) {
 func Formats() map[string]string {
 	var result = make(map[string]string)
 
-	for key,format := range formats {
-		result[key] = format.Name
+	for _, format := range formats {
+		result[format.Key] = format.Name
 	}
 
 	return result
 }
 
 func FormatsOptions() []string {
-	var result = make([]string, 0, len(formats))
+	var result []string
 
 	for _, format := range formats {
 		result = append(result, format.Name)
