@@ -89,25 +89,23 @@ func (self *DatePicker)yearChanged(year string) {
 	}
 }
 
-func (self *DatePicker)monthChanged(month string) {
-	parsed, err := strconv.Atoi(month)
+func (self *DatePicker)monthChanged(_ string) {
+	var month = self.monthWidget.SelectedIndex()
 
-	if err == nil {
-		self.when = time.Date(
-			self.when.Year(),
-			time.Month(parsed),
-			self.when.Day(),
-			self.when.Hour(),
-			self.when.Minute(),
-			0,
-			0,
-			self.when.Location())
+	self.when = time.Date(
+		self.when.Year(),
+		time.Month(month),
+		self.when.Day(),
+		self.when.Hour(),
+		self.when.Minute(),
+		0,
+		0,
+		self.when.Location())
 
-		self.dayWidget.Options = daysList(self.when)
-		self.dayWidget.Refresh()
+	self.dayWidget.Options = daysList(self.when)
+	self.dayWidget.Refresh()
 
-		self.OnChange(self.when)
-	}
+	self.OnChange(self.when)
 }
 
 func (self *DatePicker)dayChanged(day string) {
@@ -166,7 +164,7 @@ func (self *DatePicker)minuteChanged() {
 
 func (self *DatePicker)updateAll() {
 	self.yearWidget.SetSelected(strconv.Itoa(self.when.Year()))
-	self.monthWidget.SetSelected(strconv.Itoa(int(self.when.Month())))
+	self.monthWidget.SetSelected(self.when.Month().String())
 	self.dayWidget.SetSelected(strconv.Itoa(self.when.Day()))
 	
 	self.hour.Set(self.when.Hour())
@@ -194,7 +192,7 @@ func monthsList() []string {
 	var result []string
 
 	for i := 1; i <= 12; i++ {
-		result = append(result, strconv.Itoa(i))
+		result = append(result, time.Month(i).String())
 	}
 
 	return result
