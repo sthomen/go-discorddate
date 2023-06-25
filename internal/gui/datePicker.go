@@ -193,7 +193,7 @@ func yearsList() []string {
 func monthsList() []string {
 	var result []string
 
-	for i := 1; i < 12; i++ {
+	for i := 1; i <= 12; i++ {
 		result = append(result, strconv.Itoa(i))
 	}
 
