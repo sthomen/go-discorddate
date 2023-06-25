@@ -3,9 +3,9 @@ package gui
 import (
 	"time"
 
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/widget"
-	"fyne.io/fyne/container"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/widget"
+	"fyne.io/fyne/v2/container"
 
 	"git.shangtai.net/staffan/go-discorddate/internal/dateformat"
 )
@@ -40,8 +40,8 @@ func MainWindow(date time.Time, format dateformat.DateFormat) {
 		context.previewWidget,
 	))
 
-	// Set initial value, but this has to be done after SetContent or fyne will
-	// panic.
+	// Set initial values, this has to be done after SetContent or fyne will
+	// panic on SetSelected().
 	context.formatWidget.SetSelected(context.format.Name)
 
 	w.ShowAndRun()
