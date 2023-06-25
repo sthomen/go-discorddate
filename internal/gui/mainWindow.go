@@ -30,8 +30,13 @@ func MainWindow(date time.Time, format dateformat.DateFormat) {
 	context.formatWidget = widget.NewSelect(dateformat.FormatsOptions(), updateUi)
 	context.previewWidget = widget.NewLabel("")
 
+	button := widget.NewButton("Copy to clipboard", func () {
+		w.Clipboard().SetContent(context.format.Render(context.date))
+	})
+
 	w.SetContent(container.NewVBox(
 		context.formatWidget,
+		button,
 		context.previewWidget,
 	))
 
