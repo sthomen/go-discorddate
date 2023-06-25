@@ -5,14 +5,16 @@ import (
 	"time"
 	"flag"
 	"os"
-	"git.shangtai.net/staffan/go-discorddate/dateformat"
+
+	"git.shangtai.net/staffan/go-discorddate/internal/dateformat"
+	"git.shangtai.net/staffan/go-discorddate/internal/gui"
 )
 
 const DATETIME="2006-01-02 15:04:05"
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage: %s [-f format] <date>\n\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage: %s [-g] [-f format] <date>\n\n", os.Args[0])
 		flag.PrintDefaults()
 		fmt.Fprintln(os.Stderr, "\nAvailable formats:")
 		for key, name := range dateformat.Formats() {
@@ -21,6 +23,7 @@ func main() {
 	}
 
 	var formatkey = flag.String("f", "t", "Rendering format")
+	var use_gui = flag.Bool("g", false, "Start GUI")
 
 	flag.Parse()
 
@@ -39,7 +42,6 @@ func main() {
 		date = parsed
 	}
 
-
 	format, err := dateformat.Get(*formatkey)
 
 	if err != nil {
@@ -47,5 +49,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	println(format.Render(date))
+	if *use_gui {
+		gui.MainWindow(date, format)
+	} else {
+		println(format.Render(date))
+	}
 }
