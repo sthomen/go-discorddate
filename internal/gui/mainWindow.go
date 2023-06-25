@@ -14,6 +14,7 @@ import (
 type _context struct {
 	date time.Time
 	format dateformat.DateFormat
+	datePickerWidget *DatePicker
 	formatWidget *widget.Select
 	previewWidget *widget.Label
 }
@@ -27,7 +28,12 @@ func MainWindow(date time.Time, format dateformat.DateFormat) {
 	app := app.New()
 	w := app.NewWindow("Discord Date Tool")
 
-	context.formatWidget = widget.NewSelect(dateformat.FormatsOptions(), updateUi)
+	context.datePickerWidget = NewDatePicker(func (when time.Time) {
+		context.date = when
+		updateUi()
+	})
+
+	context.formatWidget = widget.NewSelect(dateformat.FormatsOptions(), func(_ string) { updateUi() })
 	context.previewWidget = widget.NewLabel("")
 
 	button := widget.NewButton("Copy to clipboard", func () {
@@ -35,6 +41,7 @@ func MainWindow(date time.Time, format dateformat.DateFormat) {
 	})
 
 	w.SetContent(container.NewVBox(
+		context.datePickerWidget,
 		context.formatWidget,
 		button,
 		context.previewWidget,
@@ -43,11 +50,12 @@ func MainWindow(date time.Time, format dateformat.DateFormat) {
 	// Set initial values, this has to be done after SetContent or fyne will
 	// panic on SetSelected().
 	context.formatWidget.SetSelected(context.format.Name)
+	context.datePickerWidget.SetDateTime(date)
 
 	w.ShowAndRun()
 }
 
-func updateUi(_ string) {
+func updateUi() {
 	var index = context.formatWidget.SelectedIndex()
 
 	format, err := dateformat.ByIndex(index)
