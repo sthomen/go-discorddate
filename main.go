@@ -1,3 +1,5 @@
+// Version is set in winres/winres.json
+//go:generate go-winres make
 package main
 
 import (
