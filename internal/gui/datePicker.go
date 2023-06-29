@@ -133,7 +133,7 @@ func (self *DatePicker)hourChanged() {
 		self.when = time.Date(
 			self.when.Year(),
 			self.when.Month(),
-			self.when.Minute(),
+			self.when.Day(),
 			hour,
 			self.when.Minute(),
 			0,
@@ -151,7 +151,7 @@ func (self *DatePicker)minuteChanged() {
 		self.when = time.Date(
 			self.when.Year(),
 			self.when.Month(),
-			self.when.Minute(),
+			self.when.Day(),
 			self.when.Hour(),
 			minute,
 			0,
