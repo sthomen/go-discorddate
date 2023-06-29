@@ -3,6 +3,7 @@ package gui
 import (
 	"time"
 	"strconv"
+	"errors"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -57,8 +58,33 @@ func (self *DatePicker)CreateRenderer() fyne.WidgetRenderer {
 	hourWidget := widget.NewEntryWithData(binding.IntToString(self.hour))
 	minuteWidget := widget.NewEntryWithData(binding.IntToString(self.minute))
 
-	hourWidget.Validator = nil
-	minuteWidget.Validator = nil
+	hourWidget.Validator = func(s string) error {
+		i, err := strconv.Atoi(s)
+
+		if err != nil {
+			return err
+		}
+
+		if len(s) > 2 || i < 0 || i > 23 {
+			return errors.New("Hours out of range")
+		}
+
+		return nil
+	}
+
+	minuteWidget.Validator = func(s string) error {
+		i, err := strconv.Atoi(s)
+
+		if err != nil {
+			return err
+		}
+
+		if len(s) > 2 || i < 0 || i > 59 {
+			return errors.New("Minutes out of range")
+		}
+
+		return nil
+	}
 
 	dateContainer := container.NewHBox(
 		self.yearWidget,
