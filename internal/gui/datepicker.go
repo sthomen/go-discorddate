@@ -100,19 +100,21 @@ func (self *DatePicker)CreateRenderer() fyne.WidgetRenderer {
 func (self *DatePicker)yearChanged(year string) {
 	parsed, err := strconv.Atoi(year)
 
-	if err == nil {
-		self.when = time.Date(
-			parsed,
-			self.when.Month(),
-			self.when.Day(),
-			self.when.Hour(),
-			self.when.Minute(),
-			0,
-			0,
-			self.when.Location())
-
-		self.OnChange(self.when)
+	if err != nil {
+		return
 	}
+
+	self.when = time.Date(
+		parsed,
+		self.when.Month(),
+		self.when.Day(),
+		self.when.Hour(),
+		self.when.Minute(),
+		0,
+		0,
+		self.when.Location())
+
+	self.OnChange(self.when)
 }
 
 func (self *DatePicker)monthChanged(_ string) {
@@ -137,55 +139,61 @@ func (self *DatePicker)monthChanged(_ string) {
 func (self *DatePicker)dayChanged(day string) {
 	parsed, err := strconv.Atoi(day)
 
-	if err == nil {
-		self.when = time.Date(
-			self.when.Year(),
-			self.when.Month(),
-			parsed,
-			self.when.Hour(),
-			self.when.Minute(),
-			0,
-			0,
-			self.when.Location())
-
-		self.OnChange(self.when)
+	if err != nil {
+		return
 	}
+
+	self.when = time.Date(
+		self.when.Year(),
+		self.when.Month(),
+		parsed,
+		self.when.Hour(),
+		self.when.Minute(),
+		0,
+		0,
+		self.when.Location())
+
+	self.OnChange(self.when)
 }
 
 func (self *DatePicker)hourChanged() {
 	hour, err := self.hour.Get()
 	
-	if err == nil {
-		self.when = time.Date(
-			self.when.Year(),
-			self.when.Month(),
-			self.when.Day(),
-			hour,
-			self.when.Minute(),
-			0,
-			0,
-			self.when.Location())
-
-		self.OnChange(self.when)
+	if err != nil {
+		return
 	}
+
+	self.when = time.Date(
+		self.when.Year(),
+		self.when.Month(),
+		self.when.Day(),
+		hour,
+		self.when.Minute(),
+		0,
+		0,
+		self.when.Location())
+
+	self.OnChange(self.when)
 }
 
 func (self *DatePicker)minuteChanged() {
 	minute, err := self.minute.Get()
 
-	if err == nil {
-		self.when = time.Date(
-			self.when.Year(),
-			self.when.Month(),
-			self.when.Day(),
-			self.when.Hour(),
-			minute,
-			0,
-			0,
-			self.when.Location())
-
-		self.OnChange(self.when)
+	if err != nil {
+		return
 	}
+
+	self.when = time.Date(
+		self.when.Year(),
+		self.when.Month(),
+		self.when.Day(),
+		self.when.Hour(),
+		minute,
+		0,
+		0,
+		self.when.Location())
+
+	self.OnChange(self.when)
 }
 
 func (self *DatePicker)updateAll() {
