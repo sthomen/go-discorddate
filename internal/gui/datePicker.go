@@ -94,7 +94,7 @@ func (self *DatePicker)monthChanged(_ string) {
 
 	self.when = time.Date(
 		self.when.Year(),
-		time.Month(month),
+		time.Month(month + 1),
 		self.when.Day(),
 		self.when.Hour(),
 		self.when.Minute(),
