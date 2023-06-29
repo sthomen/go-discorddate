@@ -35,7 +35,7 @@ func NewDatePicker(callback func(time.Time)) *DatePicker {
 }
 
 func (self *DatePicker)SetDateTime(when time.Time) {
-	self.when = when 
+	self.when = when
 	self.updateAll()
 }
 
