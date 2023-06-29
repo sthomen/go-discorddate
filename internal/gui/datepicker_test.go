@@ -9,10 +9,6 @@ import (
 )
 
 func Test_DatePicker_GetDateTime_returns_the_date_set_with_SetDateTime(t *testing.T) {
-	// not sure about the defer, the fyne tests do it
-	test.NewApp()
-	defer test.NewApp()
-	
 	datePicker := NewDatePicker(func(time.Time) {})
 	w := test.NewWindow(datePicker)
 
@@ -25,8 +21,6 @@ func Test_DatePicker_GetDateTime_returns_the_date_set_with_SetDateTime(t *testin
 }
 
 func Test_changing_the_date_should_change_the_Time_returned_by_GetDateTime(t *testing.T) {
-	defer test.NewApp()
-	
 	datePicker := NewDatePicker(func(time.Time) {})
 	w := test.NewWindow(datePicker)
 
