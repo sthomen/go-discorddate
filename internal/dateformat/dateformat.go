@@ -68,16 +68,17 @@ func Formats() map[string]string {
 	return result
 }
 
-func FormatsOptions() []string {
-	var result []string
-
-	for _, format := range formats {
-		result = append(result, format.Name)
+func (self *DateFormat)ToIndex() int {
+	for index, format := range formats {
+		if format.Key == self.Key {
+			return index
+		}
 	}
 
-	return result
+	/* NOTREACHED */
+	return -1
 }
 
-func (self *DateFormat) Render(date time.Time) string {
+func (self *DateFormat)Render(date time.Time) string {
 	return fmt.Sprintf("<t:%d:%s>", date.Unix(), self.Key)
 }

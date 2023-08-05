@@ -36,6 +36,18 @@ func Test_given_a_valid_index_ByIndex_returns_the_appropriate_dateFormat(t *test
 	assert.Equal(t, result.Key, FORMAT_R, "The index '%v' did not match the expected format '%v'", index, FORMAT_R)
 }
 
+func Test_given_a_format_ToIndex_returns_the_expected_index(t *testing.T) {
+	for i := 0; i < len(formats); i++ {
+		assert.Equal(t, i, formats[i].ToIndex())
+	}
+}
+
+func Test_given_a_format_that_somehow_is_not_in_formats_ToIndex_returns_negative_one(t *testing.T) {
+	format := DateFormat{"X", "Format X"}
+
+	assert.Equal(t, -1, format.ToIndex())
+}
+
 func Test_given_the_current_date_Render_should_produce_a_format_for_the_current_date(t *testing.T) {
 	format, err := ByKey(FORMAT_t)
 
