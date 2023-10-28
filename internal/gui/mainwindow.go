@@ -65,8 +65,8 @@ func setupUi() {
 	button         := ui.NewButton("Copy to clipboard")
 	context.label   = ui.NewLabel("")
 
-	for _, name := range dateformat.Formats() {
-		context.format.Append(name)
+	for _, format := range dateformat.Formats {
+		context.format.Append(format.Name)
 	}
 
 	context.date.OnChanged(func(_ *ui.DateTimePicker) {

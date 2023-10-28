@@ -37,8 +37,8 @@ func Test_given_a_valid_index_ByIndex_returns_the_appropriate_dateFormat(t *test
 }
 
 func Test_given_a_format_ToIndex_returns_the_expected_index(t *testing.T) {
-	for i := 0; i < len(formats); i++ {
-		assert.Equal(t, i, formats[i].ToIndex())
+	for i := 0; i < len(Formats); i++ {
+		assert.Equal(t, i, Formats[i].ToIndex())
 	}
 }
 

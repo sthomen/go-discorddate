@@ -21,7 +21,7 @@ type DateFormat struct {
 	Name string
 }
 
-var formats = []DateFormat{
+var Formats = []DateFormat{
 	DateFormat{FORMAT_R, "in 2 hours"},
 	DateFormat{FORMAT_D, "November 4, 2023"},
 	DateFormat{FORMAT_d, "04/11/2023"},
@@ -35,7 +35,7 @@ func ByKey(which string) (DateFormat, error) {
 	var result DateFormat
 	var err error = errors.New("Invalid format")
 
-	for _, format := range formats {
+	for _, format := range Formats {
 		if format.Key == which {
 			result = format
 			err = nil
@@ -50,26 +50,18 @@ func ByIndex(index int) (DateFormat, error) {
 	var result DateFormat
 	var err error = errors.New("Index out of range")
 
-	if index >= 0 && index < len(formats) {
-		result = formats[index]
-		err = nil
+	for i, format := range Formats {
+		if i == index {
+			result = format
+			err = nil
+		}
 	}
 
 	return result, err
 }
 
-func Formats() map[string]string {
-	var result = make(map[string]string)
-
-	for _, format := range formats {
-		result[format.Key] = format.Name
-	}
-
-	return result
-}
-
 func (self *DateFormat)ToIndex() int {
-	for index, format := range formats {
+	for index, format := range Formats {
 		if format.Key == self.Key {
 			return index
 		}

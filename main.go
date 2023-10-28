@@ -23,8 +23,8 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [-g] [-f format] <date>\n\n", os.Args[0])
 		flag.PrintDefaults()
 		fmt.Fprintln(os.Stderr, "\nAvailable formats:")
-		for key, name := range dateformat.Formats() {
-			fmt.Fprintln(os.Stderr, "\t", key, name)
+		for _, format := range dateformat.Formats {
+			fmt.Fprintln(os.Stderr, "\t", format.Key, format.Name)
 		}
 	}
 
