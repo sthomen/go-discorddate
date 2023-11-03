@@ -1,0 +1,4 @@
+cmd/discorddate-gui/winmanifest.*
+discorddate(|\.exe)
+discorddate-gui(|\.exe)
+
