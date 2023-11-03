@@ -35,30 +35,39 @@ GUI
 There is a gui version using [golang-ui](https://github.com/libui-ng/golang-ui)
  in the `cmd/discorddate-gui` directory.
 
-On windows, an extra step of `go generate ./cmd/dockerdate-gui`
-(or `go generate ./...` if you like) is required to build the windows binary
-resource files which gives the binary an icon and some other random info like
-author and version.
-
 Building
 --------
 
 To build all binaries, run
 ```
-% go generate ./...
 % go build -o . ./...
 ```
 
 Build only console binary
 ```
-% go build ./cmd/dockerdate
+% go build ./cmd/discorddate
 ```
 
 Build only GUI binary
 ```
-% go generate ./...
-% go build ./cmd/dockerdate-gui
+% go build ./cmd/discorddate-gui
 ```
+
+MS Windows
+----------
+
+Building on windows without special options will yield working binaries, but in
+order for the gui binary to run without also opening a text output window you
+will need to add linker arguments to go build, and if you would like to see
+the fancy icon and have author and version flags set in the binary you must
+run go generate to build the binary resource files that then get embedded in
+the binary:
+
+```
+% go generate ./...
+% go build -ldflags -H=windowsgui ./cmd/discorddate-gui
+```
+
 
 Screenshot
 ----------
