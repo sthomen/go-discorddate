@@ -1,5 +1,4 @@
 package gui
-
 import (
 	"fmt"
 	"time"
@@ -9,6 +8,7 @@ import (
 	"golang.design/x/clipboard"
 
 	"git.shangtai.net/staffan/go-discorddate/internal/dateformat"
+	"git.shangtai.net/staffan/go-discorddate/internal/tz"
 )
 
 // gui context, used internally for widget references
@@ -18,6 +18,7 @@ var context struct {
 		f dateformat.DateFormat
 	}
 	date   *ui.DateTimePicker
+	in_utc *ui.Checkbox
 	format *ui.Combobox
 	label  *ui.Label
 }
@@ -61,6 +62,7 @@ func setupUi() {
 	vbox.SetPadded(true)
 
 	context.date    = ui.NewDateTimePicker()
+	context.in_utc  = ui.NewCheckbox("Time is in UTC")
 	context.format  = ui.NewCombobox()
 	button         := ui.NewButton("Copy to clipboard")
 	context.label   = ui.NewLabel("")
@@ -77,6 +79,10 @@ func setupUi() {
 		context.label.SetText(makeString())
 	})
 
+	context.in_utc.OnToggled(func(_ *ui.Checkbox) {
+		context.label.SetText(makeString())
+	});
+
 	defaultValues()
 
 	button.OnClicked(func(_ *ui.Button) {
@@ -91,6 +97,7 @@ func setupUi() {
 	})
 
 	vbox.Append(context.date, false)
+	vbox.Append(context.in_utc, false)
 	vbox.Append(context.format, false)
 	vbox.Append(button, false)
 	vbox.Append(context.label, false)
@@ -110,6 +117,11 @@ func defaultValues() {
 // the date string.
 func makeString() string {
 	when := context.date.Time()
+
+	if context.in_utc.Checked() {
+		when = tz.AdjustToUTC(when)
+	}
+
 	format, err := dateformat.ByIndex(context.format.Selected())
 
 	if err != nil {
