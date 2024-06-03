@@ -6,12 +6,13 @@ jobs:
   Test:
     runs-on: self-hosted
     steps:
-      - name: Installing node (required by actions) and go
-        run: apk add nodejs go
+      - name: Install build dependencies
+        run: apk add --no-progress -t .testing nodejs gtk+3.0-dev go
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Run tidy to install dependencies
         run: go mod tidy
       - name: Run tests
         run: go test -v ./...
-
+      - name: Clean up build depdendencies
+        run: apk del .testing
