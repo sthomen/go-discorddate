@@ -1,0 +1,17 @@
+name: Run tests
+run-name: ${{ gitea.actor }} is running tests
+on: [push]
+
+jobs:
+  Test:
+    runs-on: self-hosted
+    steps:
+      - name: Installing node (required by actions) and go
+        run: apk add nodejs go
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Run tidy to install dependencies
+        run: go mod tidy
+      - name: Run tests
+        run: go test -v ./...
+
